@@ -14,17 +14,21 @@ runs:
 
     - name: Install yamllint
       run: pip install yamllint
+      shell: bash
 
     - name: Run yamllint
       run: |
         yamllint .
+      shell: bash
 
     - name: Install ShellCheck
       run: sudo apt-get install -y shellcheck
+      shell: bash
 
     - name: Run ShellCheck
       run: |
         find . -name "*.sh" -exec shellcheck {} \;
+      shell: bash
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -33,14 +37,18 @@ runs:
 
     - name: Install ESLint
       run: npm install -g eslint
+      shell: bash
 
     - name: Run ESLint
       run: |
         eslint '**/*.js'
+      shell: bash
 
     - name: Install pylint
       run: pip install pylint
+      shell: bash
 
     - name: Run pylint
       run: |
         find . -name "*.py" -exec pylint {} \;
+      shell: bash
