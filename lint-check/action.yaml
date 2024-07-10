@@ -1,55 +1,46 @@
-name: Lint and Syntax Check
+name: 'Lint and Syntax Check'
+description: 'Runs lint and syntax check tests on each file of the repo'
+inputs: {}
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-jobs:
-  lint-and-syntax-check:
-    runs-on: ubuntu-latest
+    - name: Install yamllint
+      run: pip install yamllint
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Run yamllint
+      run: |
+        yamllint .
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+    - name: Install ShellCheck
+      run: sudo apt-get install -y shellcheck
 
-      - name: Install yamllint
-        run: pip install yamllint
+    - name: Run ShellCheck
+      run: |
+        find . -name "*.sh" -exec shellcheck {} \;
 
-      - name: Run yamllint
-        run: |
-          yamllint .
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Install ShellCheck
-        run: sudo apt-get install -y shellcheck
+    - name: Install ESLint
+      run: npm install -g eslint
 
-      - name: Run ShellCheck
-        run: |
-          find . -name "*.sh" -exec shellcheck {} \;
+    - name: Run ESLint
+      run: |
+        eslint '**/*.js'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+    - name: Install pylint
+      run: pip install pylint
 
-      - name: Install ESLint
-        run: npm install -g eslint
-
-      - name: Run ESLint
-        run: |
-          eslint '**/*.js'
-
-      - name: Install pylint
-        run: pip install pylint
-
-      - name: Run pylint
-        run: |
-          find . -name "*.py" -exec pylint {} \;
+    - name: Run pylint
+      run: |
+        find . -name "*.py" -exec pylint {} \;
