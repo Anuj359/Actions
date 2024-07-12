@@ -13,12 +13,11 @@ runs:
         python-version: '3.x'
 
     - name: Install yamllint
-      run: pip install yamllint
+      run: pip install yamllint && pwd && ls
       shell: bash
 
-    - name: Run yamllint
-      run: |
-        yamllint .
+    - name: Run yamllint with custom config
+      run: yamllint -c .yamllint .
       shell: bash
 
     - name: Install ShellCheck
