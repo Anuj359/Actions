@@ -13,7 +13,7 @@ runs:
         python-version: '3.x'
 
     - name: Install yamllint
-      run: pip install yamllint && pwd && ls
+      run: pip install yamllint && pwd && ls -la
       shell: bash
 
     - name: Run yamllint with custom config
