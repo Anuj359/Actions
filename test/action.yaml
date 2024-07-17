@@ -47,7 +47,7 @@ jobs:
 
       - name: Lint GitHub Actions
         run: |
-          if [ "${{ inputs.lint_github_actions }}" = "true" ]; then
+          if [ "${{ github.event.inputs.lint_github_actions }}" = "true" ]; then
             sudo apt-get update && sudo apt-get install -y yamllint
             yamllint .github/workflows/*.yaml
           fi
