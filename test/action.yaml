@@ -9,34 +9,6 @@ inputs:
     description: 'Enable linting for GitHub Actions (.yaml files)'
     required: false
     default: false
-  lint_helm_files:
-    description: 'Enable linting for Helm files (.yaml files)'
-    required: false
-    default: false
-  lint_java_files:
-    description: 'Enable linting for Java files (.jar files)'
-    required: false
-    default: false
-  lint_script_files:
-    description: 'Enable linting for script files (.sh files)'
-    required: false
-    default: false
-  lint_dockerfile:
-    description: 'Enable linting for Dockerfile'
-    required: false
-    default: false
-  lint_bat_files:
-    description: 'Enable linting for .bat files'
-    required: false
-    default: false
-  lint_cpp_files:
-    description: 'Enable linting for C++ files (.cpp and .h files)'
-    required: false
-    default: false
-  lint_terraform_files:
-    description: 'Enable linting for Terraform files (.tf files)'
-    required: false
-    default: false
 
 jobs:
   lint_checks:
