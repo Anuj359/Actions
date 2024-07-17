@@ -1,14 +1,11 @@
 name: Lint Checks
 description: Action to check spell checks and formatting of different file types
 
-# on:
-#   workflow_dispatch
-
 inputs:
   lint_github_actions:
     description: 'Enable linting for GitHub Actions (.yaml files)'
     required: false
-    default: false
+    default: 'false'
 
 jobs:
   lint_checks:
@@ -19,11 +16,10 @@ jobs:
 
       - name: Lint GitHub Actions
         run: |
-          if [ "${{ github.event.inputs.lint_github_actions }}" = "true" ]; then
+          if [ "${{ inputs.lint_github_actions }}" = "true" ]; then
             sudo apt-get update && sudo apt-get install -y yamllint
             yamllint .github/workflows/*.yaml
           fi
-
       # - name: Lint Helm files
       #   if: ${{ inputs.lint_helm_files }}
       #   run: |
