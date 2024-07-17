@@ -1,0 +1,96 @@
+name: Lint Checks
+description: Action to check spell checks and formatting of different file types
+
+# on:
+#   workflow_dispatch
+
+inputs:
+  lint_github_actions:
+    description: 'Enable linting for GitHub Actions (.yaml files)'
+    required: false
+    default: false
+  lint_helm_files:
+    description: 'Enable linting for Helm files (.yaml files)'
+    required: false
+    default: false
+  lint_java_files:
+    description: 'Enable linting for Java files (.jar files)'
+    required: false
+    default: false
+  lint_script_files:
+    description: 'Enable linting for script files (.sh files)'
+    required: false
+    default: false
+  lint_dockerfile:
+    description: 'Enable linting for Dockerfile'
+    required: false
+    default: false
+  lint_bat_files:
+    description: 'Enable linting for .bat files'
+    required: false
+    default: false
+  lint_cpp_files:
+    description: 'Enable linting for C++ files (.cpp and .h files)'
+    required: false
+    default: false
+  lint_terraform_files:
+    description: 'Enable linting for Terraform files (.tf files)'
+    required: false
+    default: false
+
+jobs:
+  lint_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.5.3
+
+      - name: Lint GitHub Actions
+        run: |
+          if [ "${{ inputs.lint_github_actions }}" = "true" ]; then
+            sudo apt-get update && sudo apt-get install -y yamllint
+            yamllint .github/workflows/*.yaml
+          fi
+
+      # - name: Lint Helm files
+      #   if: ${{ inputs.lint_helm_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y yamllint
+      #     yamllint helm-charts/*.yaml
+
+      # - name: Lint Java files
+      #   if: ${{ inputs.lint_java_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y spotbugs
+      #     spotbugs -textui .
+
+      # - name: Lint script files
+      #   if: ${{ inputs.lint_script_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y shellcheck
+      #     shellcheck *.sh
+
+      # - name: Lint Dockerfile
+      #   if: ${{ inputs.lint_dockerfile }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y hadolint
+      #     hadolint Dockerfile
+
+      # - name: Lint .bat files
+      #   if: ${{ inputs.lint_bat_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y bat-linter
+      #     bat-linter *.bat
+
+      # - name: Lint C++ files
+      #   if: ${{ inputs.lint_cpp_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y cppcheck
+      #     cppcheck *.cpp *.h
+
+      # - name: Lint Terraform files
+      #   if: ${{ inputs.lint_terraform_files }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install -y tflint
+      #     tflint .
+
